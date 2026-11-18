@@ -1,0 +1,6 @@
+D:\11.source\Personal\code-checker-2\scratch\excel-test\obj\Debug\net8.0\excel-test.csproj.AssemblyReference.cache
+D:\11.source\Personal\code-checker-2\scratch\excel-test\obj\Debug\net8.0\excel-test.GeneratedMSBuildEditorConfig.editorconfig
+D:\11.source\Personal\code-checker-2\scratch\excel-test\obj\Debug\net8.0\excel-test.AssemblyInfoInputs.cache
+D:\11.source\Personal\code-checker-2\scratch\excel-test\obj\Debug\net8.0\excel-test.AssemblyInfo.cs
+D:\11.source\Personal\code-checker-2\scratch\excel-test\obj\Debug\net8.0\excel-test.csproj.CoreCompileInputs.cache
+D:\11.source\Personal\code-checker-2\scratch\excel-test\obj\Debug\net8.0\excel-test.sourcelink.json

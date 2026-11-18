@@ -1,0 +1,12 @@
+D:\11.source\Personal\code-checker-2\demo-projects\csharp-solution\src\OrderApi\obj\Debug\net8.0\HotReload\Microsoft.NET.Sdk.BlazorWeb.HotReload.lib.module.js
+D:\11.source\Personal\code-checker-2\demo-projects\csharp-solution\src\OrderApi\obj\Debug\net8.0\HotReload\Microsoft.NET.Sdk.BlazorWeb.HotReload.BrowserTools.js
+D:\11.source\Personal\code-checker-2\demo-projects\csharp-solution\src\OrderApi\obj\Debug\net8.0\HotReload\Microsoft.NET.Sdk.BlazorWeb.HotReload.BrowserTools.Config.js
+D:\11.source\Personal\code-checker-2\demo-projects\csharp-solution\src\OrderApi\obj\Debug\net8.0\HotReload\browser-tools-key.public.json
+D:\11.source\Personal\code-checker-2\demo-projects\csharp-solution\src\OrderApi\obj\Debug\net8.0\HotReload\browser-tools-key.private.json
+D:\11.source\Personal\code-checker-2\demo-projects\csharp-solution\src\OrderApi\obj\Debug\net8.0\rpswa.dswa.cache.json
+D:\11.source\Personal\code-checker-2\demo-projects\csharp-solution\src\OrderApi\obj\Debug\net8.0\OrderApi.GeneratedMSBuildEditorConfig.editorconfig
+D:\11.source\Personal\code-checker-2\demo-projects\csharp-solution\src\OrderApi\obj\Debug\net8.0\OrderApi.AssemblyInfoInputs.cache
+D:\11.source\Personal\code-checker-2\demo-projects\csharp-solution\src\OrderApi\obj\Debug\net8.0\OrderApi.AssemblyInfo.cs
+D:\11.source\Personal\code-checker-2\demo-projects\csharp-solution\src\OrderApi\obj\Debug\net8.0\OrderApi.csproj.CoreCompileInputs.cache
+D:\11.source\Personal\code-checker-2\demo-projects\csharp-solution\src\OrderApi\obj\Debug\net8.0\OrderApi.MvcApplicationPartsAssemblyInfo.cache
+D:\11.source\Personal\code-checker-2\demo-projects\csharp-solution\src\OrderApi\obj\Debug\net8.0\OrderApi.sourcelink.json

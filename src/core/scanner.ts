@@ -3,11 +3,12 @@ import { detectProject } from './detector.js';
 import { getChangedFiles } from './gitHelper.js';
 import { scanTypeScriptProject } from '../scanners/typeScriptScanner.js';
 import { scanCSharpProject } from '../scanners/csharpScanner.js';
+import { runDeepSeekAiReview } from '../scanners/aiReviewer.js';
 import type { Issue, ScanOptions, ScanResult } from '../types.js';
 
 export async function runScan(options: ScanOptions): Promise<ScanResult> {
   const startTime = performance.now();
-  const project = await detectProject(options.projectPath);
+  const project = await detectProject(options.projectPath, options.subProject);
 
   let rawIssues: Issue[] = [];
 
@@ -21,6 +22,12 @@ export async function runScan(options: ScanOptions): Promise<ScanResult> {
     rawIssues.push(...csIssues);
   }
 
+  // AI DeepSeek Logic Reviewer
+  if (options.ai) {
+    const aiIssues = await runDeepSeekAiReview(project, options);
+    rawIssues.push(...aiIssues);
+  }
+
   // Deduplicate issues on same file, line, and code/title
   const seen = new Set<string>();
   rawIssues = rawIssues.filter(issue => {
@@ -31,8 +38,8 @@ export async function runScan(options: ScanOptions): Promise<ScanResult> {
     return true;
   });
 
-  // If user specified branch or only wants changed files in git
-  if (options.branch || options.baseBranch) {
+  // If user explicitly specified a branch to filter by
+  if (options.branch) {
     const changedFiles = getChangedFiles(project.rootPath, options.branch, options.baseBranch || 'main');
     if (changedFiles.length > 0) {
       const normalizedChanged = new Set(changedFiles.map(f => f.replace(/\\/g, '/').toLowerCase()));

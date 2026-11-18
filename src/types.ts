@@ -6,14 +6,20 @@ export type IssueCategory =
   | 'RESOURCE_LEAK'
   | 'SECURITY_RISK'
   | 'PERFORMANCE'
-  | 'CODE_SMELL';
+  | 'CODE_SMELL'
+  | 'LOGIC_BUG'
+  | 'INCOMPLETE_MAPPING'
+  | 'DUPLICATE_CONSTANT'
+  | 'EXCEL_TEMPLATE_STYLE';
 
 export interface Issue {
   page: string;
   file: string;
   line: number;
+  lineEnd?: number;
   column?: number;
   code?: string;
+  riskType?: string;
   severity: IssueSeverity;
   category: IssueCategory;
   title: string;
@@ -31,16 +37,24 @@ export interface ProjectInfo {
   framework?: string;
   isGitRepo: boolean;
   currentBranch?: string;
+  availableProjects?: string[];
+  selectedProjectFile?: string;
 }
 
 export interface ScanOptions {
   projectPath: string;
+  subProject?: string;
   branch?: string;
   baseBranch?: string;
+  focusFile?: string;
   severity?: IssueSeverity[];
   htmlOutput?: string;
   jsonOutput?: string;
   strict?: boolean;
+  ai?: boolean;
+  aiModel?: string;
+  aiEndpoint?: string;
+  aiNumCtx?: number;
 }
 
 export interface ScanResult {
