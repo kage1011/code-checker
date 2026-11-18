@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pre-Release Code Inspection Report - payment-cs</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --critical: #ef4444;
+      --warning: #f59e0b;
+      --info: #3b82f6;
+      --success: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 2rem; }
+    .container { max-width: 1400px; margin: 0 auto; }
+    header { margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
+    h1 { font-size: 1.75rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .meta { display: flex; gap: 1.5rem; font-size: 0.9rem; color: var(--text-muted); flex-wrap: wrap; margin-top: 0.5rem; }
+    .meta span strong { color: var(--text); }
+    .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.75rem; font-weight: bold; }
+    .badge-critical { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid var(--critical); }
+    .badge-warning { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid var(--warning); }
+    .badge-info { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid var(--info); }
+    .badge-page { background: #334155; color: #38bdf8; font-weight: 600; padding: 0.3rem 0.6rem; border-radius: 4px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .stat-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; }
+    .stat-value { font-size: 1.8rem; font-weight: bold; margin-top: 0.25rem; }
+    .controls { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .search-box { flex: 1; min-width: 250px; background: var(--card-bg); border: 1px solid var(--border); color: var(--text); padding: 0.6rem 1rem; border-radius: 6px; }
+    .filter-select { background: var(--card-bg); border: 1px solid var(--border); color: var(--text); padding: 0.6rem 1rem; border-radius: 6px; }
+    table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+    th, td { padding: 1rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border); }
+    th { background: #1a2234; color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    tr:hover { background: rgba(255,255,255,0.02); }
+    .impact { color: #fca5a5; font-size: 0.85rem; margin-top: 0.4rem; line-height: 1.4; }
+    .suggestion { color: #86efac; font-size: 0.85rem; line-height: 1.4; }
+    .file-loc { font-family: monospace; font-size: 0.85rem; color: #cbd5e1; }
+    .status-banner { padding: 1rem 1.5rem; border-radius: 8px; margin-bottom: 2rem; font-weight: 600; display: flex; align-items: center; gap: 0.75rem; }
+    .status-blocked { background: rgba(239, 68, 68, 0.15); border: 1px solid var(--critical); color: #f87171; }
+    .status-caution { background: rgba(245, 158, 11, 0.15); border: 1px solid var(--warning); color: #fbbf24; }
+    .status-ready { background: rgba(16, 185, 129, 0.15); border: 1px solid var(--success); color: #34d399; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🔍 Pre-Release Code Inspection Report</h1>
+      <div class="meta">
+        <span>Dự án: <strong>payment-cs</strong></span>
+        <span>Công nghệ: <strong>CSHARP</strong></span>
+        <span>Framework: <strong>.NET Application</strong></span>
+        
+        <span>Thời gian quét: <strong>1416ms</strong></span>
+      </div>
+    </header>
+
+    <div class="status-banner status-blocked">❌ RELEASE STATUS: BLOCKED — Có 2 lỗi nghiêm trọng cần khắc phục trước khi release!</div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div style="color: var(--text-muted); font-size: 0.85rem;">Tổng số vấn đề</div>
+        <div class="stat-value">9</div>
+      </div>
+      <div class="stat-card">
+        <div style="color: #f87171; font-size: 0.85rem;">Lỗi Critical</div>
+        <div class="stat-value" style="color: #f87171;">2</div>
+      </div>
+      <div class="stat-card">
+        <div style="color: #fbbf24; font-size: 0.85rem;">Cảnh báo Warning</div>
+        <div class="stat-value" style="color: #fbbf24;">7</div>
+      </div>
+      <div class="stat-card">
+        <div style="color: #38bdf8; font-size: 0.85rem;">Page bị ảnh hưởng</div>
+        <div class="stat-value" style="color: #38bdf8;">1</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <input type="text" id="searchInput" class="search-box" placeholder="Tìm kiếm theo Page, File hoặc Tên lỗi..." oninput="filterTable()">
+      <select id="severityFilter" class="filter-select" onchange="filterTable()">
+        <option value="ALL">Tất cả mức độ</option>
+        <option value="CRITICAL">🔴 Critical</option>
+        <option value="WARNING">🟡 Warning</option>
+        <option value="INFO">🔵 Info</option>
+      </select>
+    </div>
+
+    <table id="issuesTable">
+      <thead>
+        <tr>
+          <th style="width: 110px;">Mức độ</th>
+          <th style="width: 180px;">Page / Module</th>
+          <th style="width: 240px;">Vị trí (File:Line)</th>
+          <th>Lỗi & Nguy cơ khi vận hành</th>
+          <th>Gợi ý khắc phục</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+          <tr data-severity="WARNING" data-page="api: order controller" data-file="controllers\ordercontroller.cs">
+            <td><span class="badge badge-warning">WARNING</span></td>
+            <td><span class="badge-page">API: Order Controller</span></td>
+            <td><div class="file-loc">Controllers\OrderController.cs:13</div></td>
+            <td>
+              <strong>The variable &#039;dbConn&#039; is assigned but its value is never used</strong>
+              <div class="impact">⚠️ <strong>Hậu quả:</strong> Cảnh báo từ trình biên dịch C# Roslyn.</div>
+            </td>
+            <td><div class="suggestion">Xem lại thông báo lỗi của compiler và sửa cú pháp.</div></td>
+          </tr>
+        
+          <tr data-severity="WARNING" data-page="api: order controller" data-file="controllers\ordercontroller.cs">
+            <td><span class="badge badge-warning">WARNING</span></td>
+            <td><span class="badge-page">API: Order Controller</span></td>
+            <td><div class="file-loc">Controllers\OrderController.cs:25</div></td>
+            <td>
+              <strong>Re-throwing caught exception changes stack information (https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2200)</strong>
+              <div class="impact">⚠️ <strong>Hậu quả:</strong> Cảnh báo từ trình biên dịch C# Roslyn.</div>
+            </td>
+            <td><div class="suggestion">Xem lại thông báo lỗi của compiler và sửa cú pháp.</div></td>
+          </tr>
+        
+          <tr data-severity="WARNING" data-page="api: order controller" data-file="controllers\ordercontroller.cs">
+            <td><span class="badge badge-warning">WARNING</span></td>
+            <td><span class="badge-page">API: Order Controller</span></td>
+            <td><div class="file-loc">Controllers\OrderController.cs:13</div></td>
+            <td>
+              <strong>The variable &#039;dbConn&#039; is assigned but its value is never used</strong>
+              <div class="impact">⚠️ <strong>Hậu quả:</strong> Cảnh báo từ trình biên dịch C# Roslyn.</div>
+            </td>
+            <td><div class="suggestion">Xem lại thông báo lỗi của compiler và sửa cú pháp.</div></td>
+          </tr>
+        
+          <tr data-severity="WARNING" data-page="api: order controller" data-file="controllers\ordercontroller.cs">
+            <td><span class="badge badge-warning">WARNING</span></td>
+            <td><span class="badge-page">API: Order Controller</span></td>
+            <td><div class="file-loc">Controllers\OrderController.cs:25</div></td>
+            <td>
+              <strong>Re-throwing caught exception changes stack information (https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2200)</strong>
+              <div class="impact">⚠️ <strong>Hậu quả:</strong> Cảnh báo từ trình biên dịch C# Roslyn.</div>
+            </td>
+            <td><div class="suggestion">Xem lại thông báo lỗi của compiler và sửa cú pháp.</div></td>
+          </tr>
+        
+          <tr data-severity="WARNING" data-page="api: order controller" data-file="controllers/ordercontroller.cs">
+            <td><span class="badge badge-warning">WARNING</span></td>
+            <td><span class="badge-page">API: Order Controller</span></td>
+            <td><div class="file-loc">Controllers/OrderController.cs:10</div></td>
+            <td>
+              <strong>Endpoint thiếu tham số CancellationToken</strong>
+              <div class="impact">⚠️ <strong>Hậu quả:</strong> Khi người dùng reload hoặc tắt trang giữa chừng, backend vẫn tiếp tục xử lý truy vấn database nặng, gây lãng phí CPU và DB connections.</div>
+            </td>
+            <td><div class="suggestion">Nhận `CancellationToken cancellationToken` vào controller action và truyền nó vào các câu truy vấn async (EF Core / HttpClient).</div></td>
+          </tr>
+        
+          <tr data-severity="CRITICAL" data-page="api: order controller" data-file="controllers/ordercontroller.cs">
+            <td><span class="badge badge-critical">CRITICAL</span></td>
+            <td><span class="badge-page">API: Order Controller</span></td>
+            <td><div class="file-loc">Controllers/OrderController.cs:15</div></td>
+            <td>
+              <strong>Sử dụng .Result hoặc .Wait() trên Task bất đồng bộ (Sync-over-Async)</strong>
+              <div class="impact">⚠️ <strong>Hậu quả:</strong> NGUY HIỂM CAO: Gây nghẽn ThreadPool và có thể dẫn đến DEADLOCK hoàn toàn toàn bộ API khi lượng truy cập tăng nhẹ trên production.</div>
+            </td>
+            <td><div class="suggestion">Chuyển phương thức sang async và dùng `await` thay vì gọi `.Result` hoặc `.Wait()`.</div></td>
+          </tr>
+        
+          <tr data-severity="CRITICAL" data-page="api: order controller" data-file="controllers/ordercontroller.cs">
+            <td><span class="badge badge-critical">CRITICAL</span></td>
+            <td><span class="badge-page">API: Order Controller</span></td>
+            <td><div class="file-loc">Controllers/OrderController.cs:16</div></td>
+            <td>
+              <strong>Sử dụng .Result hoặc .Wait() trên Task bất đồng bộ (Sync-over-Async)</strong>
+              <div class="impact">⚠️ <strong>Hậu quả:</strong> NGUY HIỂM CAO: Gây nghẽn ThreadPool và có thể dẫn đến DEADLOCK hoàn toàn toàn bộ API khi lượng truy cập tăng nhẹ trên production.</div>
+            </td>
+            <td><div class="suggestion">Chuyển phương thức sang async và dùng `await` thay vì gọi `.Result` hoặc `.Wait()`.</div></td>
+          </tr>
+        
+          <tr data-severity="WARNING" data-page="api: order controller" data-file="controllers/ordercontroller.cs">
+            <td><span class="badge badge-warning">WARNING</span></td>
+            <td><span class="badge-page">API: Order Controller</span></td>
+            <td><div class="file-loc">Controllers/OrderController.cs:24</div></td>
+            <td>
+              <strong>Sử dụng &quot;throw ex;&quot; làm mất dấu vết nguồn gốc lỗi (Stack Trace)</strong>
+              <div class="impact">⚠️ <strong>Hậu quả:</strong> Khi hệ thống xảy ra lỗi trên production, log sẽ chỉ hiển thị dòng throw này thay vì dòng gốc bị lỗi, khiến việc điều tra sự cố mất nhiều giờ.</div>
+            </td>
+            <td><div class="suggestion">Sử dụng lệnh `throw;` đơn thuần để bảo toàn nguyên vẹn toàn bộ Call Stack.</div></td>
+          </tr>
+        
+          <tr data-severity="WARNING" data-page="api: order controller" data-file="controllers/ordercontroller.cs">
+            <td><span class="badge badge-warning">WARNING</span></td>
+            <td><span class="badge-page">API: Order Controller</span></td>
+            <td><div class="file-loc">Controllers/OrderController.cs:25</div></td>
+            <td>
+              <strong>Sử dụng &quot;throw ex;&quot; làm mất dấu vết nguồn gốc lỗi (Stack Trace)</strong>
+              <div class="impact">⚠️ <strong>Hậu quả:</strong> Khi hệ thống xảy ra lỗi trên production, log sẽ chỉ hiển thị dòng throw này thay vì dòng gốc bị lỗi, khiến việc điều tra sự cố mất nhiều giờ.</div>
+            </td>
+            <td><div class="suggestion">Sử dụng lệnh `throw;` đơn thuần để bảo toàn nguyên vẹn toàn bộ Call Stack.</div></td>
+          </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function filterTable() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const severity = document.getElementById('severityFilter').value;
+      const rows = document.querySelectorAll('#issuesTable tbody tr');
+
+      rows.forEach(row => {
+        const rowSeverity = row.getAttribute('data-severity');
+        const text = row.innerText.toLowerCase();
+        const matchSearch = !search || text.includes(search);
+        const matchSeverity = severity === 'ALL' || rowSeverity === severity;
+        row.style.display = (matchSearch && matchSeverity) ? '' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
